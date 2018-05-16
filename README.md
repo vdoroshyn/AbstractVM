@@ -32,4 +32,4 @@ Basic starting pseudocode:
 4) Check wether the command array is ended with exit command
 		If not, the exception should be thrown
 5) Iterating the command array, execute every command 1 by 1 (poping the executed command from the commmand array[queue])
-		At this point, there might be runtime exceptions (division by 0, incorrect order of commands, wrong assert, etc.)
+		At this point, there might be runtime exceptions (division by 0, incorrect order of commands, wrong assert, not enough operand in the stack for performing a command, etc.)
