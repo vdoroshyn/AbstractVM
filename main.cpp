@@ -1,19 +1,16 @@
-#include <iostream>
-#include <vector>
+#include <iostream>//todo
+#include <vector>//todo
+#include "Lexer.hpp"
+#include "LexerException.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
-	if (argc == 1) {
-		//read stuff from the standard input
-		//end at user's input == ";;"
-		std::cout << argv[0] << std::endl;
-
-	} else if (argc == 2) {
-		//read stuff from file
-		//end at EOF
-		std::cout << argv[1] << std::endl;
-	} else {
-		std::cout << "There are too many arguments" << std::endl;
+	try {
+		Lexer lexer = Lexer(argc, argv);
+	} catch (LexerException& e) {
+		std::cout << e.what() << std::endl;
+	} catch (...) {
+		std::cout << "exception was not caught" << std::endl;
 	}
 
 
