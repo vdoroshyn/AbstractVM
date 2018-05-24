@@ -8,6 +8,9 @@ class Lexer {
 		Lexer(Lexer const& obj);
 		~Lexer();
 
+		void readFromFile(char *file);
+		void readFromStandardInput();
+
 		Lexer& operator=(Lexer const& obj);
 };
 

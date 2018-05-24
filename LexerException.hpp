@@ -8,16 +8,14 @@ class LexerException : public std::exception {
 	public:
 		LexerException();
 		LexerException(std::string const& error);
-		LexerException(LexerException const& obj) = delete;
+		LexerException(LexerException const& obj);
 		~LexerException() noexcept = default;
 
 		virtual const char* what() const noexcept;
 
-
-
-		LexerException& operator=(LexerException const& obj) = delete;
+		LexerException& operator=(LexerException const& obj);
 	private:
-		const std::string _error;
+		std::string _error;
 };
 
 #endif

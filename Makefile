@@ -29,3 +29,4 @@ Lexer.o : Lexer.cpp
 
 LexerException.o : LexerException.cpp
 	$(CC) $(CPPFLAGS) -c LexerException.cpp
+	
