@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 	} catch (LexerException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (...) {
-		std::cout << "exception was not caught" << std::endl;
+		std::cout << "Unknown exception was caught" << std::endl;
 	}
 
 

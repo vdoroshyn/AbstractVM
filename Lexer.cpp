@@ -2,24 +2,26 @@
 #include "LexerException.hpp"
 #include <iostream>
 #include <fstream>
+#include <regex>
 
 Lexer::Lexer() {
 }
 
 Lexer::Lexer(int argc, char* argv[]) {
 	if (argc == 1) {
+		/*
+		**read stuff from the standard input
+		**end at user's input == ";;"
+		*/
 		this->readFromStandardInput();
-		//read stuff from the standard input
-		//end at user's input == ";;"
-
 	} else if (argc == 2) {
+		/*
+		**read stuff from file
+		**end at EOF
+		*/
 		this->readFromFile(argv[1]);
-		//read stuff from file
-		//end at EOF
-		
 	} else {
-		throw LexerException("exception");
-		// std::cout << "There are too many arguments" << std::endl;
+		throw LexerException("There are too many arguments");
 	}
 }
 
@@ -28,6 +30,14 @@ Lexer::Lexer(Lexer const& obj) {
 }
 
 Lexer::~Lexer() {
+}
+
+void Lexer::lineValidation(std::string input) {
+	//std::cout << input << std::endl;
+	std::regex e("\\s*(pop|dump|add|sub|mul|div|mod|print|exit)\\s*(?:;.*)?");
+	
+	bool match = regex_match(input, e);
+	std::cout << (match ? "Matched" : "Not matched") << std::endl;
 }
 
 void Lexer::readFromFile(char* file) {
@@ -39,17 +49,15 @@ void Lexer::readFromFile(char* file) {
 	std::string input;
 
 	while (std::getline(ifstr, input)) {
-		std::cout << input << std::endl;
+		this->lineValidation(input);
 	}
-	std::cout << "file" << std::endl;
 }
 
-void Lexer::readFromStandardInput() {
-	std::cout << "standard" << std::endl;
+void Lexer::readFromStandardInput() {	
 	std::string input;
 
 	while (std::getline(std::cin, input) && input != ";;") {
-		std::cout << input << std::endl;
+		this->lineValidation(input);
 	}
 }
 

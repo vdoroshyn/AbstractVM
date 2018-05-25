@@ -1,6 +1,8 @@
 #ifndef LEXER_HPP
 #define LEXER_HPP
 
+#include <iostream>
+
 class Lexer {
 	public:
 		Lexer();
@@ -10,6 +12,7 @@ class Lexer {
 
 		void readFromFile(char *file);
 		void readFromStandardInput();
+		void lineValidation(std::string input);
 
 		Lexer& operator=(Lexer const& obj);
 };
