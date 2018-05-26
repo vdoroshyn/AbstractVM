@@ -32,56 +32,6 @@ Lexer::Lexer(Lexer const& obj) {
 Lexer::~Lexer() {
 }
 
-void Lexer::lineValidation(std::string input) {
-	//std::cout << input << std::endl;
-	std::smatch match;
-	std::regex commandRegex("^\\s*(pop|dump|add|sub|mul|div|mod|print|exit)\\s*(?:;.*)?$");
-	std::regex commandAndIntRegex("^\\s*(push|assert)\\s+(int8|int16|int32)\\(([-]?\\d+)\\)\\s*(?:;.*)?$");
-	std::regex commandAndFloatingRegex("^\\s*(push|assert)\\s+(float|double)\\(([-]?\\d+\\.\\d+)\\)\\s*(?:;.*)?$");
-	std::regex commentRegex("^\\s*(?:;.*){1}$");
-	std::regex emptyLineRegex("^\\s*$");
-
-	if (regex_search(input, match, commandRegex)) {
-		std::vector<std::string> oneLineTokens;
-
-		oneLineTokens.push_back(match[1].str());
-		for (unsigned int i = 0; i < oneLineTokens.size(); ++i) {
-			std::cout << oneLineTokens.at(i) << " ";
-		}
-		std::cout << std::endl;
-		this->tokens.push_back(oneLineTokens);
-
-	} else if (regex_search(input, match, commandAndIntRegex) || regex_search(input, match, commandAndFloatingRegex)) {
-		std::vector<std::string> oneLineTokens;
-
-		oneLineTokens.push_back(match[1].str());
-		oneLineTokens.push_back(match[2].str());
-		oneLineTokens.push_back(match[3].str());
-		for (unsigned int i = 0; i < oneLineTokens.size(); ++i) {
-			std::cout << oneLineTokens.at(i) << " ";
-		}
-		std::cout << std::endl;
-		this->tokens.push_back(oneLineTokens);
-		// std::cout << match[1].str() <<std::endl;
-		// std::cout << match[2].str() <<std::endl;
-		// std::cout << match[3].str() <<std::endl;
-	} else if (regex_search(input, match, commentRegex) || regex_search(input, match, emptyLineRegex)) {
-
-	} else {
-		this->errors += "Lexer error. Check the syntax in the following line: \"" + input + "\"\n";
-	}
-
-	// bool found = regex_search(input, match, commandAndIntRegex);
-	// std::cout << (found ? "Found" : "Not found") << std::endl;
-	// std::cout << "match.size() " << match.size() << std::endl;
-	// for (unsigned long i = 0; i < match.size(); ++i){
-	// 	std::cout << "match[" << i << "]: " << match[i].str() << std::endl;
-	// }
-
-	// bool match = regex_match(input, commandRegex);
-	// std::cout << (match ? "Matched" : "Not matched") << std::endl;
-}
-
 void Lexer::readFromFile(char* file) {
 	std::ifstream ifstr(file);
 	if (!ifstr.is_open()) {
@@ -106,9 +56,85 @@ void Lexer::readFromStandardInput() {
 	while (std::getline(std::cin, input) && input != ";;") {
 		this->lineValidation(input);
 	}
+	// std::cout << "output tokens:" << this->tokens.size() << std::endl;
+	// for (auto& line : this->tokens) {
+	// 	for (auto& token : line) {
+	// 		std::cout << token << " ";
+	// 	}
+	// 	std::cout << std::endl;
+	// }
 	if (this->errors != "") {
 		throw LexerException(errors);
 	}
+}
+
+void Lexer::lineValidation(std::string input) {
+	//std::cout << input << std::endl;
+	std::smatch match;
+	std::regex commandRegex("^\\s*(pop|dump|add|sub|mul|div|mod|print|exit)\\s*(?:;.*)?$");
+	std::regex commandAndIntRegex("^\\s*(push|assert)\\s+(int8|int16|int32)\\(([-]?\\d+)\\)\\s*(?:;.*)?$");
+	std::regex commandAndFloatingRegex("^\\s*(push|assert)\\s+(float|double)\\(([-]?\\d+\\.\\d+)\\)\\s*(?:;.*)?$");
+	std::regex commentRegex("^\\s*(?:;.*){1}$");
+	std::regex emptyLineRegex("^\\s*$");
+
+	if (regex_search(input, match, commandRegex)) {
+		processingShortCommands(match);
+	} else if (regex_search(input, match, commandAndIntRegex) || regex_search(input, match, commandAndFloatingRegex)) {
+		processingCommandsWithArguments(match);
+	} else if (regex_search(input, match, commentRegex) || regex_search(input, match, emptyLineRegex)) {
+		processingEmptyLinesAndComments();
+	} else {
+		this->errors += "Lexer error. Check the syntax in the following line: \"" + input + "\"\n";
+	}
+
+	// bool found = regex_search(input, match, commandAndIntRegex);
+	// std::cout << (found ? "Found" : "Not found") << std::endl;
+	// std::cout << "match.size() " << match.size() << std::endl;
+	// for (unsigned long i = 0; i < match.size(); ++i){
+	// 	std::cout << "match[" << i << "]: " << match[i].str() << std::endl;
+	// }
+
+	// bool match = regex_match(input, commandRegex);
+	// std::cout << (match ? "Matched" : "Not matched") << std::endl;
+}
+
+void Lexer::processingShortCommands(std::smatch match) {
+	std::vector<std::string> oneLineTokens;
+
+	oneLineTokens.push_back(match[1].str());
+	for (unsigned int i = 0; i < oneLineTokens.size(); ++i) {
+		std::cout << oneLineTokens.at(i) << " ";
+	}
+	std::cout << std::endl;
+	this->tokens.push_back(oneLineTokens);
+}
+
+void Lexer::processingCommandsWithArguments(std::smatch match) {
+	std::vector<std::string> oneLineTokens;
+
+	oneLineTokens.push_back(match[1].str());
+	oneLineTokens.push_back(match[2].str());
+	oneLineTokens.push_back(match[3].str());
+	for (unsigned int i = 0; i < oneLineTokens.size(); ++i) {
+		std::cout << oneLineTokens.at(i) << " ";
+	}
+	std::cout << std::endl;
+	this->tokens.push_back(oneLineTokens);
+	// std::cout << match[1].str() <<std::endl;
+	// std::cout << match[2].str() <<std::endl;
+	// std::cout << match[3].str() <<std::endl;
+}
+
+void Lexer::processingEmptyLinesAndComments() {
+	/*
+	**this part is for future purposes
+	**currently it does nothing as the comments and empty lines must be validated but are not used
+	*/
+	return;
+}
+
+const std::vector<std::vector<std::string>>& Lexer::getTokens() {
+	return this->tokens;
 }
 
 Lexer& Lexer::operator=(Lexer const& obj) {
