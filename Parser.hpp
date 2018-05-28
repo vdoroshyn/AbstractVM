@@ -2,6 +2,7 @@
 #define PARSER_HPP
 
 #include <iostream>
+#include <vector>
 
 class Parser {
 	public:
@@ -9,7 +10,7 @@ class Parser {
 		Parser(const std::vector<std::vector<std::string>>& lexerTokens);
 		Parser(Parser const& obj) = delete;
 		~Parser();
-		void foo();
+		void printTokens();
 
 		Parser& operator=(Parser const& obj) = delete;
 	private:

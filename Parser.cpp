@@ -7,6 +7,12 @@ Parser::Parser(const std::vector<std::vector<std::string>>& lexerTokens): _lexer
 Parser::~Parser() {
 }
 
-void Parser::foo() {
-	(void)_lexerTokens;
+void Parser::printTokens() {
+	std::cout << "output number of lines with tokens: " << this->_lexerTokens.size() << std::endl;
+	for (auto& line : this->_lexerTokens) {
+		for (auto& token : line) {
+			std::cout << token << " ";
+		}
+		std::cout << std::endl;
+	}
 }
