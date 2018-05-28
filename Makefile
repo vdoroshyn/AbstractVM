@@ -4,7 +4,9 @@ CPPFLAGS = -Wall -Wextra -Werror -std=c++11
 
 OBJECTS =   main.o \
 			Lexer.o \
+			Parser.o \
 			LexerException.o \
+			ParserException.o \
 
 .PHONY : clean all fclean re
 
@@ -27,6 +29,12 @@ main.o : main.cpp
 Lexer.o : Lexer.cpp
 	$(CC) $(CPPFLAGS) -c Lexer.cpp
 
+Parser.o : Parser.cpp
+	$(CC) $(CPPFLAGS) -c Parser.cpp
+
 LexerException.o : LexerException.cpp
 	$(CC) $(CPPFLAGS) -c LexerException.cpp
+
+ParserException.o : ParserException.cpp
+	$(CC) $(CPPFLAGS) -c ParserException.cpp
 	

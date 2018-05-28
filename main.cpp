@@ -4,7 +4,7 @@
 #include "LexerException.hpp"
 
 int main(int argc, char* argv[]) {
-
+	
 	try {
 		Lexer lexer = Lexer(argc, argv);
 	} catch (LexerException& e) {

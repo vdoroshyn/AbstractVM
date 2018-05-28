@@ -4,9 +4,6 @@
 #include <fstream>
 #include <regex>
 
-Lexer::Lexer() {
-}
-
 Lexer::Lexer(int argc, char* argv[]) {
 	if (argc == 1) {
 		/*
@@ -25,10 +22,6 @@ Lexer::Lexer(int argc, char* argv[]) {
 	}
 }
 
-Lexer::Lexer(Lexer const& obj) {
-	*this = obj;
-}
-
 Lexer::~Lexer() {
 }
 
@@ -39,32 +32,36 @@ void Lexer::readFromFile(char* file) {
 	}
 
 	std::string input;
-
-	this->errors = "";
+	/*
+	**initializing the errors array with an empty string
+	*/
+	this->_errors = "";
 	while (std::getline(ifstr, input)) {
 		this->lineValidation(input);
 	}
-	if (this->errors != "") {
-		throw LexerException(errors);
+	if (this->_errors != "") {
+		throw LexerException(this->_errors);
 	}
 }
 
 void Lexer::readFromStandardInput() {	
 	std::string input;
-
-	this->errors = "";
+	/*
+	**initializing the errors array with an empty string
+	*/
+	this->_errors = "";
 	while (std::getline(std::cin, input) && input != ";;") {
 		this->lineValidation(input);
 	}
-	// std::cout << "output tokens:" << this->tokens.size() << std::endl;
-	// for (auto& line : this->tokens) {
+	// std::cout << "output number of lines with tokens: " << this->_tokens.size() << std::endl;
+	// for (auto& line : this->_tokens) {
 	// 	for (auto& token : line) {
 	// 		std::cout << token << " ";
 	// 	}
 	// 	std::cout << std::endl;
 	// }
-	if (this->errors != "") {
-		throw LexerException(errors);
+	if (this->_errors != "") {
+		throw LexerException(this->_errors);
 	}
 }
 
@@ -83,7 +80,7 @@ void Lexer::lineValidation(std::string input) {
 	} else if (regex_search(input, match, commentRegex) || regex_search(input, match, emptyLineRegex)) {
 		processingEmptyLinesAndComments();
 	} else {
-		this->errors += "Lexer error. Check the syntax in the following line: \"" + input + "\"\n";
+		this->_errors += "Lexer error. Check the syntax in the following line: \"" + input + "\"\n";
 	}
 }
 
@@ -96,7 +93,7 @@ void Lexer::processingShortCommands(std::smatch match) {
 	/*
 	**adding the result to the tokens vector
 	*/
-	this->tokens.push_back(oneLineTokens);
+	this->_tokens.push_back(oneLineTokens);
 }
 
 void Lexer::processingCommandsWithArguments(std::smatch match) {
@@ -110,7 +107,7 @@ void Lexer::processingCommandsWithArguments(std::smatch match) {
 	/*
 	**adding the result to the tokens vector
 	*/
-	this->tokens.push_back(oneLineTokens);
+	this->_tokens.push_back(oneLineTokens);
 }
 
 void Lexer::processingEmptyLinesAndComments() {
@@ -122,12 +119,5 @@ void Lexer::processingEmptyLinesAndComments() {
 }
 
 const std::vector<std::vector<std::string>>& Lexer::getTokens() {
-	return this->tokens;
-}
-
-Lexer& Lexer::operator=(Lexer const& obj) {
-	if (this != &obj) {
-		//copy stuff
-	}
-	return *this;
+	return this->_tokens;
 }
