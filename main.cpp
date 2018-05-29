@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 	try {
 		Lexer lexer(argc, argv);
 		Parser parser(lexer.getTokens());
-		parser.printTokens();
+		// parser.printTokens();
 	} catch (LexerException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (ParserException& e) {
