@@ -13,6 +13,11 @@ class Parser {
 		void printTokens();//TODO
 		void checkTokens();
 		void validatePushAndAssertArgs(std::vector<std::string> tokenLine);
+		void validateFloatArgs(std::string token);
+		void validateDoubleArgs(std::string token);
+		void validateInt8Args(std::string token);
+		void validateInt16Args(std::string token);
+		void validateInt32Args(std::string token);
 		bool isPush(unsigned long index);
 		bool isAssert(unsigned long index);
 		bool isExit(unsigned long index);

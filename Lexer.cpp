@@ -13,6 +13,13 @@ Lexer::Lexer(int argc, char* argv[]) {
 		this->readFromStandardInput();
 	} else if (argc == 2) {
 		/*
+		**An Easter Egg for perverts in UNIT Factory
+		*/
+		std::string argument = std::string(argv[1]);
+		if (argument == "/dev/zero" || argument == "/dev/null") {
+			throw LexerException("Eric Exception: Congratulations! You are trying to check veeeeeery perverted cases!");
+		}
+		/*
 		**read stuff from file
 		**end at EOF
 		*/
@@ -74,7 +81,7 @@ void Lexer::lineValidation(std::string input) {
 	} else if (regex_search(input, match, commentRegex) || regex_search(input, match, emptyLineRegex)) {
 		processingEmptyLinesAndComments();
 	} else {
-		this->_errors += "Lexer error. Check the syntax in the following line: \"" + input + "\"\n";
+		this->_errors += "Lexer error: Check the syntax in the following line: \"" + input + "\"\n";
 	}
 }
 
