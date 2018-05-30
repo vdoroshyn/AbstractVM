@@ -21,7 +21,7 @@ void Parser::printTokens() {
 }//TODO
 
 void Parser::checkTokens() {
-	std::cout << "output number of lines with tokens: " << std::endl;
+	std::cout << "_______________________________________________________________" << std::endl;
 	for (unsigned long index = 0; index < this->_lexerTokens.size(); ++index) {
 		if (isPush(index) || isAssert(index)) {
 			validatePushAndAssertArgs(this->_lexerTokens[index]);
@@ -32,6 +32,13 @@ void Parser::checkTokens() {
 			++this->exitCount;
 			checkExitCount();
 		}
+	}
+	/*
+	**Checking whether the user entered at least something
+	*/
+	if (areTokensEmpty()) {
+		this->_errors += "Parser error: You should have entered some commands\n";
+		throw ParserException(this->_errors);
 	}
 	isExitLastCommand();
 	if (!this->_errors.empty()) {
@@ -158,6 +165,13 @@ void Parser::checkExitCount() {
 	if (this->exitCount > 1) {
 		this->_errors += "Parser error: You cannot have more than one exit.\n";
 	} 
+}
+
+bool Parser::areTokensEmpty() {
+	if (this->_lexerTokens.size() != 0) {
+		return false;
+	}
+	return true;
 }
 
 void Parser::isExitLastCommand() {

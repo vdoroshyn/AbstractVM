@@ -22,6 +22,7 @@ class Parser {
 		bool isAssert(unsigned long index);
 		bool isExit(unsigned long index);
 		void checkExitCount();
+		bool areTokensEmpty();
 		void isExitLastCommand();
 
 		Parser& operator=(Parser const& obj) = delete;
