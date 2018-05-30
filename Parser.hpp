@@ -13,12 +13,17 @@ class Parser {
 		void printTokens();//TODO
 		void checkTokens();
 		void validatePushAndAssertArgs(std::vector<std::string> tokenLine);
-		
+		bool isPush(unsigned long index);
+		bool isAssert(unsigned long index);
+		bool isExit(unsigned long index);
+		void checkExitCount();
+		void isExitLastCommand();
+
 		Parser& operator=(Parser const& obj) = delete;
 	private:
 		const std::vector<std::vector<std::string>>& _lexerTokens;
 		std::string _errors;
-		bool isExit;
+		int exitCount;
 };
 
 #endif

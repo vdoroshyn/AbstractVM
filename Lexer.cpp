@@ -32,24 +32,18 @@ void Lexer::readFromFile(char* file) {
 	}
 
 	std::string input;
-	/*
-	**initializing the errors array with an empty string
-	*/
-	this->_errors = "";
+
 	while (std::getline(ifstr, input)) {
 		this->lineValidation(input);
 	}
-	if (this->_errors != "") {
+	if (!this->_errors.empty()) {
 		throw LexerException(this->_errors);
 	}
 }
 
 void Lexer::readFromStandardInput() {	
 	std::string input;
-	/*
-	**initializing the errors array with an empty string
-	*/
-	this->_errors = "";
+
 	while (std::getline(std::cin, input) && input != ";;") {
 		this->lineValidation(input);
 	}
@@ -60,7 +54,7 @@ void Lexer::readFromStandardInput() {
 	// 	}
 	// 	std::cout << std::endl;
 	// }
-	if (this->_errors != "") {
+	if (!this->_errors.empty()) {
 		throw LexerException(this->_errors);
 	}
 }
