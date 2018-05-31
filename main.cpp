@@ -1,5 +1,6 @@
-#include <iostream>//todo
+#include <iostream>
 #include <vector>//todo
+#include "Operand.hpp"//TODO
 #include "Lexer.hpp"
 #include "LexerException.hpp"
 #include "Parser.hpp"
@@ -18,7 +19,9 @@ int main(int argc, char* argv[]) {
 	} catch (...) {
 		std::cout << "Unknown exception was caught" << std::endl;
 	}
-
+	// (void)argc;(void)argv;
+	// eOperandType test = Int32;
+	// std::cout << test << std::endl;
 
 	// std::vector<int> testVector;
 

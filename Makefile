@@ -7,6 +7,7 @@ OBJECTS =   main.o \
 			Parser.o \
 			LexerException.o \
 			ParserException.o \
+			Factory.o \
 
 .PHONY : clean all fclean re
 
@@ -37,4 +38,6 @@ LexerException.o : LexerException.cpp
 
 ParserException.o : ParserException.cpp
 	$(CC) $(CPPFLAGS) -c ParserException.cpp
-	
+
+# Factory.o : Factory.cpp
+# 	$(CC) $(CPPFLAGS) -c Factory.cpp

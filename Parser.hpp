@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-
+//make methods you can private
 class Parser {
 	public:
 		Parser() = delete;
