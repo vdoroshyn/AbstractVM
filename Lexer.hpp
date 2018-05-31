@@ -14,6 +14,7 @@ class Lexer {
 
 		void readFromFile(char *file);
 		void readFromStandardInput();
+		bool areTokensEmpty();
 		void lineValidation(std::string input);
 		void processingShortCommands(std::smatch match);
 		void processingCommandsWithArguments(std::smatch match);

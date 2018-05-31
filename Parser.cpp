@@ -33,13 +33,6 @@ void Parser::checkTokens() {
 			checkExitCount();
 		}
 	}
-	/*
-	**Checking whether the user entered at least something
-	*/
-	if (areTokensEmpty()) {
-		this->_errors += "Parser error: You should have entered some commands\n";
-		throw ParserException(this->_errors);
-	}
 	isExitLastCommand();
 	if (!this->_errors.empty()) {
 		throw ParserException(this->_errors);
@@ -165,13 +158,6 @@ void Parser::checkExitCount() {
 	if (this->exitCount > 1) {
 		this->_errors += "Parser error: You cannot have more than one exit.\n";
 	} 
-}
-
-bool Parser::areTokensEmpty() {
-	if (this->_lexerTokens.size() != 0) {
-		return false;
-	}
-	return true;
 }
 
 void Parser::isExitLastCommand() {

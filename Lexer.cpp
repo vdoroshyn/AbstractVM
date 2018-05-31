@@ -46,6 +46,13 @@ void Lexer::readFromFile(char* file) {
 	if (!this->_errors.empty()) {
 		throw LexerException(this->_errors);
 	}
+	/*
+	**Checking whether the user entered at least something
+	*/
+	if (areTokensEmpty()) {
+		this->_errors += "You should have entered at least one command\n";
+		throw LexerException(this->_errors);
+	}
 }
 
 void Lexer::readFromStandardInput() {	
@@ -64,6 +71,20 @@ void Lexer::readFromStandardInput() {
 	if (!this->_errors.empty()) {
 		throw LexerException(this->_errors);
 	}
+	/*
+	**Checking whether the user entered at least something
+	*/
+	if (areTokensEmpty()) {
+		this->_errors += "You should have entered at least one command\n";
+		throw LexerException(this->_errors);
+	}
+}
+
+bool Lexer::areTokensEmpty() {
+	if (this->_tokens.size() != 0) {
+		return false;
+	}
+	return true;
 }
 
 void Lexer::lineValidation(std::string input) {
