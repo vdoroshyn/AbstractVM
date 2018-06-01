@@ -5,9 +5,10 @@ CPPFLAGS = -Wall -Wextra -Werror -std=c++11
 OBJECTS =   main.o \
 			Lexer.o \
 			Parser.o \
+			VirtualMachine.o \
 			LexerException.o \
 			ParserException.o \
-			Factory.o \
+			VirtualMachineException.o \
 
 .PHONY : clean all fclean re
 
@@ -33,11 +34,17 @@ Lexer.o : Lexer.cpp
 Parser.o : Parser.cpp
 	$(CC) $(CPPFLAGS) -c Parser.cpp
 
+VirtualMachine.o : VirtualMachine.cpp
+	$(CC) $(CPPFLAGS) -c VirtualMachine.cpp
+
 LexerException.o : LexerException.cpp
 	$(CC) $(CPPFLAGS) -c LexerException.cpp
 
 ParserException.o : ParserException.cpp
 	$(CC) $(CPPFLAGS) -c ParserException.cpp
 
-# Factory.o : Factory.cpp
-# 	$(CC) $(CPPFLAGS) -c Factory.cpp
+VirtualMachineException.o : VirtualMachineException.cpp
+	$(CC) $(CPPFLAGS) -c VirtualMachineException.cpp
+
+# OperandFactory.o : OperandFactory.cpp
+# 	$(CC) $(CPPFLAGS) -c OperandFactory.cpp

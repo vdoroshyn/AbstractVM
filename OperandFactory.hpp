@@ -1,17 +1,17 @@
-#ifndef FACTORY_HPP
-#define FACTORY_HPP
+#ifndef OPERAND_FACTORY_HPP
+#define OPERAND_FACTORY_HPP
 
 #include <iostream>
 
-class Factory {
+class OperandFactory {
 	public:
-		Factory() = delete;
-		Factory(Factory const& obj) = delete;
-		~Factory();
+		OperandFactory() = delete;
+		OperandFactory(OperandFactory const& obj) = delete;
+		~OperandFactory();
 
 		IOperand const* createOperand(eOperandType, std::string const& value) const;
 
-		Factory& operator=(Factory const& obj) = delete;
+		OperandFactory& operator=(OperandFactory const& obj) = delete;
 	private:
 		IOperand const* createInt8(std::string const& value) const;
 		IOperand const* createInt16(std::string const& value) const;
