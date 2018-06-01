@@ -1,6 +1,7 @@
 #ifndef OPERAND_FACTORY_HPP
 #define OPERAND_FACTORY_HPP
 
+#include "IOperand.hpp"
 #include <string>
 
 class OperandFactory {
