@@ -1,7 +1,7 @@
 #ifndef PARSER_EXCEPTION_HPP
 #define PARSER_EXCEPTION_HPP
 
-#include <iostream>
+#include <string>
 #include <exception>
 
 class ParserException : public std::exception {

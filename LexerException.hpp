@@ -1,7 +1,7 @@
 #ifndef LEXER_EXCEPTION_HPP
 #define LEXER_EXCEPTION_HPP
 
-#include <iostream>
+#include <string>
 #include <exception>
 
 class LexerException : public std::exception {

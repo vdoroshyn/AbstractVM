@@ -1,7 +1,7 @@
 #ifndef OPERAND_FACTORY_HPP
 #define OPERAND_FACTORY_HPP
 
-#include <iostream>
+#include <string>
 
 class OperandFactory {
 	public:

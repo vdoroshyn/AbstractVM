@@ -1,5 +1,6 @@
 #include "Parser.hpp"
 #include "ParserException.hpp"
+#include <iostream>
 #include <limits>
 
 Parser::Parser(const std::vector<std::vector<std::string>>& lexerTokens): _lexerTokens(lexerTokens) {

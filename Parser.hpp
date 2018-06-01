@@ -1,7 +1,7 @@
 #ifndef PARSER_HPP
 #define PARSER_HPP
 
-#include <iostream>
+#include <string>
 #include <vector>
 //make methods you can private
 class Parser {

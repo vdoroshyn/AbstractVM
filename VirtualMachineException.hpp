@@ -1,7 +1,7 @@
 #ifndef VIRTUAL_MACHINE_EXCEPTION_HPP
 #define VIRTUAL_MACHINE_EXCEPTION_HPP
 
-#include <iostream>
+#include <string>
 #include <exception>
 
 class VirtualMachineException : public std::exception {
