@@ -37,3 +37,9 @@ int main(int argc, char* argv[]) {
 	// std::cout << std::endl;
 	return 0;
 }
+
+
+//to add:
+//line 1, 2, 3
+//usage
+//
