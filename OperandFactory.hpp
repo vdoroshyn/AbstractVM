@@ -6,19 +6,27 @@
 
 class OperandFactory {
 	public:
-		OperandFactory() = delete;
+		OperandFactory();
 		OperandFactory(OperandFactory const& obj) = delete;
 		~OperandFactory();
 
-		IOperand const* createOperand(eOperandType, std::string const& value) const;
+		const IOperand* createOperand(eOperandType type, const std::string& value) const;
 
-		OperandFactory& operator=(OperandFactory const& obj) = delete;
+		static OperandFactory& getFactory();
+
+		OperandFactory& operator=(const OperandFactory& obj) = delete;	
 	private:
-		IOperand const* createInt8(std::string const& value) const;
-		IOperand const* createInt16(std::string const& value) const;
-		IOperand const* createInt32(std::string const& value) const;
-		IOperand const* createFloat(std::string const& value) const;
-		IOperand const* createDouble(std::string const& value) const;
+		static OperandFactory _factory;
+		/*
+		**array of pointers on member fucnctions
+		*/
+		const IOperand* (OperandFactory::*chooseYourOperand[5])(const std::string&) const;
+
+		const IOperand* createInt8(const std::string& value) const;
+		const IOperand* createInt16(const std::string& value) const;
+		const IOperand* createInt32(const std::string& value) const;
+		const IOperand* createFloat(const std::string& value) const;
+		const IOperand* createDouble(const std::string& value) const;
 };
 
 #endif

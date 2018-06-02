@@ -24,16 +24,17 @@ template<class T>
 class Operand : public IOperand {
 	public:
 		Operand() = delete;
+		Operand(eOperandType type, const std::string value);
 		Operand(Operand const& obj) = delete;
 		~Operand();
 
-		IOperand const* operator+(IOperand const& rhs) const override;
-		IOperand const* operator-(IOperand const& rhs) const override;
-		IOperand const* operator*(IOperand const& rhs) const override;
-		IOperand const* operator/(IOperand const& rhs) const override;
-		IOperand const* operator%(IOperand const& rhs) const override;
+		const IOperand* operator+(IOperand const& rhs) const override;
+		const IOperand* operator-(IOperand const& rhs) const override;
+		const IOperand* operator*(IOperand const& rhs) const override;
+		const IOperand* operator/(IOperand const& rhs) const override;
+		const IOperand* operator%(IOperand const& rhs) const override;
 
-		std::string const& toString() const override;
+		const std::string& toString() const override;
 		int getPrecision() const override;
 		eOperandType getType() const override;
 
@@ -41,40 +42,45 @@ class Operand : public IOperand {
 	private:
 		int _precision;
 		eOperandType _type;
+		const std::string _value;
 };
+
+template<typename T>
+Operand<T>::Operand(eOperandType type, const std::string value) : _precision(type), _type(type), _value(value) {
+}
 
 template<typename T>
 Operand<T>::~Operand() {
 }
 
 template<typename T>
-IOperand const* Operand<T>::operator+(IOperand const& rhs) const {
-
+const IOperand* Operand<T>::operator+(IOperand const& rhs) const {
+	return NULL;//todo
 }
 
 template<typename T>
-IOperand const* Operand<T>::operator-(IOperand const& rhs) const {
-	
+const IOperand* Operand<T>::operator-(IOperand const& rhs) const {
+	return NULL;//todo
 }
 
 template<typename T>
-IOperand const* Operand<T>::operator*(IOperand const& rhs) const {
-	
+const IOperand* Operand<T>::operator*(IOperand const& rhs) const {
+	return NULL;//todo
 }
 
 template<typename T>
-IOperand const* Operand<T>::operator/(IOperand const& rhs) const {
-	
+const IOperand* Operand<T>::operator/(IOperand const& rhs) const {
+	return NULL;//todo
 }
 
 template<typename T>
-IOperand const* Operand<T>::operator%(IOperand const& rhs) const {
-	
+const IOperand* Operand<T>::operator%(IOperand const& rhs) const {
+	return NULL;//todo
 }
 
 template<typename T>
-std::string Operand<T>::toString() const {
-	//return the string representation
+const std::string& Operand<T>::toString() const {
+	return this->_value;
 }
 
 template<typename T>
