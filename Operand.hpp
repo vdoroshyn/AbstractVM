@@ -55,26 +55,31 @@ Operand<T>::~Operand() {
 
 template<typename T>
 const IOperand* Operand<T>::operator+(IOperand const& rhs) const {
+	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator-(IOperand const& rhs) const {
+	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator*(IOperand const& rhs) const {
+	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator/(IOperand const& rhs) const {
+	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator%(IOperand const& rhs) const {
+	(void)rhs;
 	return NULL;//todo
 }
 

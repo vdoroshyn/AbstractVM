@@ -9,6 +9,7 @@ OBJECTS =   main.o \
 			LexerException.o \
 			ParserException.o \
 			VirtualMachineException.o \
+			OperandFactory.o \
 
 .PHONY : clean all fclean re
 
@@ -46,5 +47,5 @@ ParserException.o : ParserException.cpp
 VirtualMachineException.o : VirtualMachineException.cpp
 	$(CC) $(CPPFLAGS) -c VirtualMachineException.cpp
 
-# OperandFactory.o : OperandFactory.cpp
-# 	$(CC) $(CPPFLAGS) -c OperandFactory.cpp
+OperandFactory.o : OperandFactory.cpp
+	$(CC) $(CPPFLAGS) -c OperandFactory.cpp

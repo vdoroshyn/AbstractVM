@@ -5,16 +5,26 @@
 #include "LexerException.hpp"
 #include "Parser.hpp"
 #include "ParserException.hpp"
+#include "VirtualMachine.hpp"
+#include "VirtualMachineException.hpp"
+// #include "OperandFactory.hpp"//todo
 
 int main(int argc, char* argv[]) {
 
 	try {
 		Lexer lexer(argc, argv);
 		Parser parser(lexer.getTokens());
-		parser.printTokens();
+		// parser.printTokens();
+		VirtualMachine(lexer.getTokens());
+		// const IOperand* obj = OperandFactory::getFactory().createOperand(Int16, "45");
+		// std::cout << obj->getType() << std::endl;
+		// std::cout << obj->toString() << std::endl;
+		// std::cout << obj->getPrecision() << std::endl;
 	} catch (LexerException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (ParserException& e) {
+		std::cout << e.what() << std::endl;
+	} catch (VirtualMachineException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (...) {
 		std::cout << "Unknown exception was caught" << std::endl;
