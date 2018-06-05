@@ -14,10 +14,10 @@ VirtualMachine::VirtualMachine(const std::vector<std::vector<std::string>>& lexe
 	this->enumMap["int32"] = Int32;
 	this->enumMap["float"] = Float;
 	this->enumMap["double"] = Double;
-	const IOperand* obj = OperandFactory::getFactory().createOperand(this->enumMap["float"], "45");
-	std::cout << obj->getType() << std::endl;
-	std::cout << obj->toString() << std::endl;
-	std::cout << obj->getPrecision() << std::endl;
+	// const IOperand* obj = OperandFactory::getFactory().createOperand(this->enumMap["float"], "45");
+	// std::cout << obj->getType() << std::endl;
+	// std::cout << obj->toString() << std::endl;
+	// std::cout << obj->getPrecision() << std::endl;
 }
 
 VirtualMachine::~VirtualMachine() {

@@ -7,13 +7,13 @@
 class ParserException : public std::exception {
 	public:
 		ParserException();
-		ParserException(std::string const& error);
-		ParserException(ParserException const& obj);
+		ParserException(const std::string& error);
+		ParserException(const ParserException& obj);
 		~ParserException() noexcept = default;
 
 		virtual const char* what() const noexcept;
 
-		ParserException& operator=(ParserException const& obj);
+		ParserException& operator=(const ParserException& obj);
 	private:
 		std::string _error;
 };

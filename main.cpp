@@ -44,6 +44,5 @@ int main(int argc, char* argv[]) {
 
 
 //to add:
-//line 1, 2, 3
 //usage
 //

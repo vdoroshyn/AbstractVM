@@ -3,14 +3,14 @@
 LexerException::LexerException() {
 }
 
-LexerException::LexerException(std::string const& error): _error(error) {
+LexerException::LexerException(const std::string& error): _error(error) {
 }
 
-LexerException::LexerException(LexerException const& obj) {
+LexerException::LexerException(const LexerException& obj) {
 	*this = obj;
 }
 
-LexerException& LexerException::operator=(LexerException const& obj) {
+LexerException& LexerException::operator=(const LexerException& obj) {
 	if (this != &obj) {
 		this->_error = obj._error;
 	}

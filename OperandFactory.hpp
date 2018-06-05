@@ -6,7 +6,7 @@
 
 class OperandFactory {
 	public:
-		OperandFactory(OperandFactory const& obj) = delete;
+		OperandFactory(const OperandFactory& obj) = delete;
 		~OperandFactory();
 
 		const IOperand* createOperand(eOperandType type, const std::string& value) const;

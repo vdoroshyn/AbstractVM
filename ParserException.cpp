@@ -3,14 +3,14 @@
 ParserException::ParserException() {
 }
 
-ParserException::ParserException(std::string const& error): _error(error) {
+ParserException::ParserException(const std::string& error): _error(error) {
 }
 
-ParserException::ParserException(ParserException const& obj) {
+ParserException::ParserException(const ParserException& obj) {
 	*this = obj;
 }
 
-ParserException& ParserException::operator=(ParserException const& obj) {
+ParserException& ParserException::operator=(const ParserException& obj) {
 	if (this != &obj) {
 		this->_error = obj._error;
 	}

@@ -16,14 +16,15 @@ class VirtualMachine {
 
 		VirtualMachine() = delete;
 		VirtualMachine(const std::vector<std::vector<std::string>>& lexerTokens);
-		VirtualMachine(VirtualMachine const& obj) = delete;
+		VirtualMachine(const VirtualMachine& obj) = delete;
 		~VirtualMachine();
 
 		void printTokens();//todo
 
-		VirtualMachine& operator=(VirtualMachine const& obj) = delete;
+		VirtualMachine& operator=(const VirtualMachine& obj) = delete;
 	private:
 		const std::vector<std::vector<std::string>>& _lexerTokens;
+		std::vector<const IOperand*> _operands;
 };
 
 #endif

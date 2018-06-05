@@ -3,14 +3,14 @@
 VirtualMachineException::VirtualMachineException() {
 }
 
-VirtualMachineException::VirtualMachineException(std::string const& error): _error(error) {
+VirtualMachineException::VirtualMachineException(const std::string& error): _error(error) {
 }
 
-VirtualMachineException::VirtualMachineException(VirtualMachineException const& obj) {
+VirtualMachineException::VirtualMachineException(const VirtualMachineException& obj) {
 	*this = obj;
 }
 
-VirtualMachineException& VirtualMachineException::operator=(VirtualMachineException const& obj) {
+VirtualMachineException& VirtualMachineException::operator=(const VirtualMachineException& obj) {
 	if (this != &obj) {
 		this->_error = obj._error;
 	}

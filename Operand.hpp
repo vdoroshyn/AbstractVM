@@ -9,20 +9,20 @@ class Operand : public IOperand {
 	public:
 		Operand() = delete;
 		Operand(eOperandType type, const std::string value);
-		Operand(Operand const& obj) = delete;
+		Operand(const Operand& obj) = delete;
 		~Operand();
 
-		const IOperand* operator+(IOperand const& rhs) const override;
-		const IOperand* operator-(IOperand const& rhs) const override;
-		const IOperand* operator*(IOperand const& rhs) const override;
-		const IOperand* operator/(IOperand const& rhs) const override;
-		const IOperand* operator%(IOperand const& rhs) const override;
+		const IOperand* operator+(const IOperand& rhs) const override;
+		const IOperand* operator-(const IOperand& rhs) const override;
+		const IOperand* operator*(const IOperand& rhs) const override;
+		const IOperand* operator/(const IOperand& rhs) const override;
+		const IOperand* operator%(const IOperand& rhs) const override;
 
 		const std::string& toString() const override;
 		int getPrecision() const override;
 		eOperandType getType() const override;
 
-		Operand& operator=(Operand const& obj) = delete;
+		Operand& operator=(const Operand& obj) = delete;
 	private:
 		int _precision;
 		eOperandType _type;
@@ -38,31 +38,31 @@ Operand<T>::~Operand() {
 }
 
 template<typename T>
-const IOperand* Operand<T>::operator+(IOperand const& rhs) const {
+const IOperand* Operand<T>::operator+(const IOperand& rhs) const {
 	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
-const IOperand* Operand<T>::operator-(IOperand const& rhs) const {
+const IOperand* Operand<T>::operator-(const IOperand& rhs) const {
 	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
-const IOperand* Operand<T>::operator*(IOperand const& rhs) const {
+const IOperand* Operand<T>::operator*(const IOperand& rhs) const {
 	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
-const IOperand* Operand<T>::operator/(IOperand const& rhs) const {
+const IOperand* Operand<T>::operator/(const IOperand& rhs) const {
 	(void)rhs;
 	return NULL;//todo
 }
 
 template<typename T>
-const IOperand* Operand<T>::operator%(IOperand const& rhs) const {
+const IOperand* Operand<T>::operator%(const IOperand& rhs) const {
 	(void)rhs;
 	return NULL;//todo
 }

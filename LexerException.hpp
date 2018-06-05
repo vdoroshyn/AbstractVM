@@ -7,13 +7,13 @@
 class LexerException : public std::exception {
 	public:
 		LexerException();
-		LexerException(std::string const& error);
-		LexerException(LexerException const& obj);
+		LexerException(const std::string& error);
+		LexerException(const LexerException& obj);
 		~LexerException() noexcept = default;
 
 		virtual const char* what() const noexcept;
 
-		LexerException& operator=(LexerException const& obj);
+		LexerException& operator=(const LexerException& obj);
 	private:
 		std::string _error;
 };

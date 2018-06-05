@@ -9,7 +9,7 @@ class Lexer {
 	public:
 		Lexer() = delete;
 		Lexer(int argc, char* argv[]);
-		Lexer(Lexer const& obj) = delete;
+		Lexer(const Lexer& obj) = delete;
 		~Lexer();
 
 		void readFromFile(char *file);
@@ -22,7 +22,7 @@ class Lexer {
 		
 		const std::vector<std::vector<std::string>>& getTokens();
 
-		Lexer& operator=(Lexer const& obj) = delete;
+		Lexer& operator=(const Lexer& obj) = delete;
 	private:
 		std::vector<std::vector<std::string>> _tokens;
 		std::string _errors;
