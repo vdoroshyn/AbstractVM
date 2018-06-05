@@ -61,13 +61,6 @@ void Lexer::readFromStandardInput() {
 	while (std::getline(std::cin, input) && input != ";;") {
 		this->lineValidation(input);
 	}
-	// std::cout << "output number of lines with tokens: " << this->_tokens.size() << std::endl;
-	// for (auto& line : this->_tokens) {
-	// 	for (auto& token : line) {
-	// 		std::cout << token << " ";
-	// 	}
-	// 	std::cout << std::endl;
-	// }
 	if (!this->_errors.empty()) {
 		throw LexerException(this->_errors);
 	}
@@ -94,6 +87,10 @@ void Lexer::lineValidation(std::string input) {
 	std::regex commandAndFloatingRegex("^\\s*(push|assert)\\s+(float|double)\\(([-]?\\d+\\.\\d+)\\)\\s*(?:;.*)?$");
 	std::regex commentRegex("^\\s*(?:;.*){1}$");
 	std::regex emptyLineRegex("^\\s*$");
+	/*
+	**Iterating numberOfLineWithError with each line to show relevant line sin error messages 
+	*/
+	++this->numberOfLineWithError;
 
 	if (regex_search(input, match, commandRegex)) {
 		processingShortCommands(match);
@@ -102,7 +99,7 @@ void Lexer::lineValidation(std::string input) {
 	} else if (regex_search(input, match, commentRegex) || regex_search(input, match, emptyLineRegex)) {
 		processingEmptyLinesAndComments();
 	} else {
-		this->_errors += "Lexer error: Check the syntax in the following line: \"" + input + "\"\n";
+		this->_errors += "Lexer error: Check the syntax on line " + std::to_string(this->numberOfLineWithError) + ": \"" + input + "\"\n";
 	}
 }
 

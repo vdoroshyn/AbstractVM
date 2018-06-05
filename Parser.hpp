@@ -29,6 +29,7 @@ class Parser {
 		const std::vector<std::vector<std::string>>& _lexerTokens;
 		std::string _errors;
 		int exitCount;
+		unsigned long numberOfLineWithError = 0;
 };
 
 #endif

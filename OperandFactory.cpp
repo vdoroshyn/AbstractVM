@@ -1,8 +1,6 @@
 #include "Operand.hpp"
 #include "OperandFactory.hpp"
 
-// #include <iostream>//todo
-
 OperandFactory::OperandFactory()
 	: chooseYourOperand {
 		&OperandFactory::createInt8,
@@ -46,12 +44,3 @@ OperandFactory& OperandFactory::getFactory() {
 
 	return _factory;
 }
-
-// int main()
-// {
-// 	const IOperand* obj = OperandFactory::getFactory().createOperand(Int16, "45");
-// 	std::cout << obj->getType() << std::endl;
-// 	std::cout << obj->toString() << std::endl;
-// 	std::cout << obj->getPrecision() << std::endl;
-// 	return 0;
-// }

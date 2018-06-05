@@ -24,6 +24,11 @@ void Parser::printTokens() {
 void Parser::checkTokens() {
 	std::cout << "_______________________________________________________________" << std::endl;
 	for (unsigned long index = 0; index < this->_lexerTokens.size(); ++index) {
+		/*
+		**Iterating numberOfLineWithError with each line to show relevant line sin error messages 
+		*/
+		++this->numberOfLineWithError;
+
 		if (isPush(index) || isAssert(index)) {
 			validatePushAndAssertArgs(this->_lexerTokens[index]);
 		} else if (isExit(index)) {
@@ -61,12 +66,16 @@ void Parser::validateFloatArgs(std::string token) {
 		float fmax = std::numeric_limits<float>::max();
 
 		if (floatingPointNumber < fmin || fmax < floatingPointNumber) {
-			this->_errors += "Parser error: \"" + token + "\" is out of float boundaries.\n";
+			this->_errors += "Parser error in token "
+							+ std::to_string(this->numberOfLineWithError) + ": \""
+							+ token + "\" is out of float boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
 		this->_errors += "There was an error while converting a string to double\n";
 	} catch (std::out_of_range) {
-		this->_errors += "Parser error: \"" + token + "\" is too big. Try to use such numbers in 10 years.\n";
+		this->_errors += "Parser error in token "
+						+ std::to_string(this->numberOfLineWithError) + ": \""
+						+ token + "\" is too big. Try to use such numbers in 10 years.\n";
 	}
 }
 
@@ -77,12 +86,16 @@ void Parser::validateDoubleArgs(std::string token) {
 		double dmax = std::numeric_limits<double>::max();
 
 		if (floatingPointNumber < dmin || dmax < floatingPointNumber) {
-			this->_errors += "Parser error: \"" + token + "\" is out of double boundaries.\n";
+			this->_errors += "Parser error in token " 
+							+ std::to_string(this->numberOfLineWithError) + ": \""
+							+ token + "\" is out of double boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
 		this->_errors += "There was an error while converting a string to double\n";
 	} catch (std::out_of_range) {
-		this->_errors += "Parser error: \"" + token + "\" is too big. Try to use such numbers in 10 years.\n";
+		this->_errors += "Parser error in token "
+						+ std::to_string(this->numberOfLineWithError) + ": \""
+						+ token + "\" is too big. Try to use such numbers in 10 years.\n";
 	}
 }
 
@@ -93,12 +106,16 @@ void Parser::validateInt8Args(std::string token) {
 		int8_t i8max = std::numeric_limits<int8_t>::max();
 
 		if (int8Number < i8min || i8max < int8Number) {
-			this->_errors += "Parser error: \"" + token + "\" is out of int8 boundaries.\n";
+			this->_errors += "Parser error in token "
+							+ std::to_string(this->numberOfLineWithError) + ": \""
+							+ token + "\" is out of int8 boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
 		this->_errors += "There was an error while converting a string to long long\n";
 	} catch (std::out_of_range) {
-		this->_errors += "Parser error: \"" + token + "\" is too big. Try to use such numbers in 10 years.\n";
+		this->_errors += "Parser error in token "
+						+ std::to_string(this->numberOfLineWithError) + ": \""
+						+ token + "\" is too big. Try to use such numbers in 10 years.\n";
 	}
 }
 
@@ -109,12 +126,16 @@ void Parser::validateInt16Args(std::string token) {
 		int16_t i16max = std::numeric_limits<int16_t>::max();
 
 		if (int16Number < i16min || i16max < int16Number) {
-			this->_errors += "Parser error: \"" + token + "\" is out of int16 boundaries.\n";
+			this->_errors += "Parser error in token "
+							+ std::to_string(this->numberOfLineWithError) + ": \""
+							+ token + "\" is out of int16 boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
 		this->_errors += "There was an error while converting a string to long long\n";
 	} catch (std::out_of_range) {
-		this->_errors += "Parser error: \"" + token + "\" is too big. Try to use such numbers in 10 years.\n";
+		this->_errors += "Parser error in token "
+						+ std::to_string(this->numberOfLineWithError) + ": \""
+						+ token + "\" is too big. Try to use such numbers in 10 years.\n";
 	}
 }
 
@@ -125,12 +146,16 @@ void Parser::validateInt32Args(std::string token) {
 		int32_t i32max = std::numeric_limits<int32_t>::max();
 
 		if (int32Number < i32min || i32max < int32Number) {
-			this->_errors += "Parser error: \"" + token + "\" is out of int32 boundaries.\n";
+			this->_errors += "Parser error in token "
+							+ std::to_string(this->numberOfLineWithError) + ": \""
+							+ token + "\" is out of int32 boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
 		this->_errors += "There was an error while converting a string to long long\n";
 	} catch (std::out_of_range) {
-		this->_errors += "Parser error: \"" + token + "\" is too big. Try to use such numbers in 10 years.\n";
+		this->_errors += "Parser error in token "
+						+ std::to_string(this->numberOfLineWithError) + ": \""
+						+ token + "\" is too big. Try to use such numbers in 10 years.\n";
 	}
 }
 

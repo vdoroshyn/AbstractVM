@@ -1,13 +1,10 @@
-#include <vector>//todo
 #include <iostream>
-// #include "Operand.hpp"//TODO
 #include "Lexer.hpp"
 #include "LexerException.hpp"
 #include "Parser.hpp"
 #include "ParserException.hpp"
 #include "VirtualMachine.hpp"
 #include "VirtualMachineException.hpp"
-// #include "OperandFactory.hpp"//todo
 
 int main(int argc, char* argv[]) {
 
@@ -15,11 +12,8 @@ int main(int argc, char* argv[]) {
 		Lexer lexer(argc, argv);
 		Parser parser(lexer.getTokens());
 		// parser.printTokens();
-		VirtualMachine(lexer.getTokens());
-		// const IOperand* obj = OperandFactory::getFactory().createOperand(Int16, "45");
-		// std::cout << obj->getType() << std::endl;
-		// std::cout << obj->toString() << std::endl;
-		// std::cout << obj->getPrecision() << std::endl;
+		VirtualMachine VM(lexer.getTokens());
+		// VM.printTokens();
 	} catch (LexerException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (ParserException& e) {

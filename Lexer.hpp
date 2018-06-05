@@ -26,6 +26,7 @@ class Lexer {
 	private:
 		std::vector<std::vector<std::string>> _tokens;
 		std::string _errors;
+		unsigned long numberOfLineWithError = 0;
 };
 
 #endif
