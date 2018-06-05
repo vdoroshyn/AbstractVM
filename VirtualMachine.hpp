@@ -20,6 +20,8 @@ class VirtualMachine {
 		~VirtualMachine();
 
 		void printTokens();//todo
+		void printOperands();//todo
+		void executeCommands();
 
 		VirtualMachine& operator=(const VirtualMachine& obj) = delete;
 	private:

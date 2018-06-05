@@ -39,6 +39,7 @@ int main(int argc, char* argv[]) {
 	// }
 
 	// std::cout << std::endl;
+	system("leaks avm");
 	return 0;
 }
 

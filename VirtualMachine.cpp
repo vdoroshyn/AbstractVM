@@ -18,6 +18,9 @@ VirtualMachine::VirtualMachine(const std::vector<std::vector<std::string>>& lexe
 	// std::cout << obj->getType() << std::endl;
 	// std::cout << obj->toString() << std::endl;
 	// std::cout << obj->getPrecision() << std::endl;
+	this->printTokens();
+	this->executeCommands();
+	this->printOperands();
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -32,3 +35,22 @@ void VirtualMachine::printTokens() {
 		std::cout << std::endl;
 	}
 }//TODO
+
+void VirtualMachine::printOperands() {
+	for (auto& obj : this->_operands) {
+		std::cout << "type: " << obj->getType() << ", string: " << obj->toString() << ", precision: " << obj->getPrecision() << std::endl;
+	}
+	this->_operands.pop_back();
+	std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	for (auto& obj : this->_operands) {
+		std::cout << "type: " << obj->getType() << ", string: " << obj->toString() << ", precision: " << obj->getPrecision() << std::endl;
+	}
+}//TODO
+
+void VirtualMachine::executeCommands() {
+	for (auto& line : this->_lexerTokens) {
+		if (line[0] == "push") {
+			this->_operands.push_back(OperandFactory::getFactory().createOperand(this->enumMap[line[1]], line[2]));
+		}
+	}
+}
