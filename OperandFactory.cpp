@@ -3,8 +3,6 @@
 
 // #include <iostream>//todo
 
-OperandFactory OperandFactory::_factory;
-
 OperandFactory::OperandFactory()
 	: chooseYourOperand {
 		&OperandFactory::createInt8,
@@ -44,6 +42,8 @@ const IOperand* OperandFactory::createDouble(const std::string& value) const {
 }
 
 OperandFactory& OperandFactory::getFactory() {
+	static OperandFactory _factory;
+
 	return _factory;
 }
 
