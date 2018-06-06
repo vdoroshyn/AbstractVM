@@ -23,26 +23,12 @@ int main(int argc, char* argv[]) {
 	} catch (...) {
 		std::cout << "Unknown exception was caught" << std::endl;
 	}
-	// (void)argc;(void)argv;
-	// eOperandType test = Int32;
-	// std::cout << test << std::endl;
-
-	// std::vector<int> testVector;
-
-	// testVector.push_back(3);
-	// testVector.push_back(4);
-	// testVector.push_back(5);
-	// std::cout << "Vector: ";
-
-	// for (unsigned int i = 0; i < testVector.size(); ++i) {
-	// 	std::cout << testVector.at(i) << " ";
-	// }
-
-	// std::cout << std::endl;
-	system("leaks avm");
+	// system("leaks avm");
 	return 0;
 }
 
+
+//to fix:
 
 //to add:
 //usage

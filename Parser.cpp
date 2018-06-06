@@ -22,7 +22,7 @@ void Parser::printTokens() {
 }//TODO
 
 void Parser::checkTokens() {
-	std::cout << "_______________________________________________________________" << std::endl;
+	std::cout << "_______________________________________________________________" << std::endl;//todo
 	for (unsigned long index = 0; index < this->_lexerTokens.size(); ++index) {
 		/*
 		**Iterating numberOfLineWithError with each line to show relevant line sin error messages 
@@ -61,8 +61,8 @@ void Parser::validatePushAndAssertArgs(std::vector<std::string> tokenLine) {
 
 void Parser::validateFloatArgs(std::string token) {
 	try {
-		double floatingPointNumber = std::stold(token);
-		float fmin = std::numeric_limits<float>::min();
+		long double floatingPointNumber = std::stold(token);
+		float fmin = std::numeric_limits<float>::lowest();
 		float fmax = std::numeric_limits<float>::max();
 
 		if (floatingPointNumber < fmin || fmax < floatingPointNumber) {
@@ -81,8 +81,8 @@ void Parser::validateFloatArgs(std::string token) {
 
 void Parser::validateDoubleArgs(std::string token) {
 	try {
-		double floatingPointNumber = std::stold(token);
-		double dmin = std::numeric_limits<double>::min();
+		long double floatingPointNumber = std::stold(token);
+		double dmin = std::numeric_limits<double>::lowest();
 		double dmax = std::numeric_limits<double>::max();
 
 		if (floatingPointNumber < dmin || dmax < floatingPointNumber) {
@@ -102,7 +102,7 @@ void Parser::validateDoubleArgs(std::string token) {
 void Parser::validateInt8Args(std::string token) {
 	try {
 		long long int8Number = std::stoll(token);
-		int8_t i8min = std::numeric_limits<int8_t>::min();
+		int8_t i8min = std::numeric_limits<int8_t>::lowest();
 		int8_t i8max = std::numeric_limits<int8_t>::max();
 
 		if (int8Number < i8min || i8max < int8Number) {
@@ -122,7 +122,7 @@ void Parser::validateInt8Args(std::string token) {
 void Parser::validateInt16Args(std::string token) {
 	try {
 		long long int16Number = std::stoll(token);
-		int16_t i16min = std::numeric_limits<int16_t>::min();
+		int16_t i16min = std::numeric_limits<int16_t>::lowest();
 		int16_t i16max = std::numeric_limits<int16_t>::max();
 
 		if (int16Number < i16min || i16max < int16Number) {
@@ -142,7 +142,7 @@ void Parser::validateInt16Args(std::string token) {
 void Parser::validateInt32Args(std::string token) {
 	try {
 		long long int32Number = std::stoll(token);
-		int32_t i32min = std::numeric_limits<int32_t>::min();
+		int32_t i32min = std::numeric_limits<int32_t>::lowest();
 		int32_t i32max = std::numeric_limits<int32_t>::max();
 
 		if (int32Number < i32min || i32max < int32Number) {
