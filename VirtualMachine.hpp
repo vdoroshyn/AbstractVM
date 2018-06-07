@@ -14,6 +14,9 @@ class VirtualMachine {
 		VirtualMachine(const VirtualMachine& obj) = delete;
 		~VirtualMachine();
 
+		void run();
+		void clearStack();
+		
 		void push(const std::string& type, const std::string& value);
 		void pop();
 		void dump();
@@ -28,7 +31,6 @@ class VirtualMachine {
 
 		void printTokens();//todo
 		void printOperands();//todo
-		void run();
 
 		VirtualMachine& operator=(const VirtualMachine& obj) = delete;
 	private:

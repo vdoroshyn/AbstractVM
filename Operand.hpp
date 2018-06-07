@@ -1,8 +1,12 @@
 #ifndef OPERAND_HPP
 #define OPERAND_HPP
 
-#include "IOperand.hpp"
 #include <string>
+#include <algorithm>
+#include <limits>
+#include "VirtualMachineException.hpp"
+#include "IOperand.hpp"
+#include "OperandFactory.hpp"
 
 template<class T>
 class Operand : public IOperand {
@@ -39,32 +43,77 @@ Operand<T>::~Operand() {
 
 template<typename T>
 const IOperand* Operand<T>::operator+(const IOperand& rhs) const {
-	(void)rhs;
-	return NULL;//todo
+	eOperandType type = std::max(this->getType(), rhs.getType());
+	long double a = std::stold(this->toString());
+	long double b = std::stold(rhs.toString());
+	long double res = a + b;
+	T min = std::numeric_limits<T>::lowest();
+	T max = std::numeric_limits<T>::max();
+	if (res < min || max < res) {
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+	}
+	T resWithoutZeros = static_cast<T>(res);
+	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator-(const IOperand& rhs) const {
-	(void)rhs;
-	return NULL;//todo
+	eOperandType type = std::max(this->getType(), rhs.getType());
+	long double a = std::stold(this->toString());
+	long double b = std::stold(rhs.toString());
+	long double res = a - b;
+	T min = std::numeric_limits<T>::lowest();
+	T max = std::numeric_limits<T>::max();
+	if (res < min || max < res) {
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+	}
+	T resWithoutZeros = static_cast<T>(res);
+	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator*(const IOperand& rhs) const {
-	(void)rhs;
-	return NULL;//todo
+	eOperandType type = std::max(this->getType(), rhs.getType());
+	long double a = std::stold(this->toString());
+	long double b = std::stold(rhs.toString());
+	long double res = a * b;
+	T min = std::numeric_limits<T>::lowest();
+	T max = std::numeric_limits<T>::max();
+	if (res < min || max < res) {
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+	}
+	T resWithoutZeros = static_cast<T>(res);
+	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator/(const IOperand& rhs) const {
-	(void)rhs;
-	return NULL;//todo
+	eOperandType type = std::max(this->getType(), rhs.getType());
+	long double a = std::stold(this->toString());
+	long double b = std::stold(rhs.toString());
+	long double res = a / b;
+	T min = std::numeric_limits<T>::lowest();
+	T max = std::numeric_limits<T>::max();
+	if (res < min || max < res) {
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+	}
+	T resWithoutZeros = static_cast<T>(res);
+	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
 }
 
 template<typename T>
 const IOperand* Operand<T>::operator%(const IOperand& rhs) const {
-	(void)rhs;
-	return NULL;//todo
+	eOperandType type = std::max(this->getType(), rhs.getType());
+	long double a = std::stold(this->toString());
+	long double b = std::stold(rhs.toString());
+	long double res = (int)a % (int)b;//todo
+	T min = std::numeric_limits<T>::lowest();
+	T max = std::numeric_limits<T>::max();
+	if (res < min || max < res) {
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+	}
+	T resWithoutZeros = static_cast<T>(res);
+	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
 }
 
 template<typename T>

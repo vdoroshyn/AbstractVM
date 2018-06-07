@@ -1,7 +1,7 @@
 #include "VirtualMachine.hpp"
 #include "VirtualMachineException.hpp"
 #include "OperandFactory.hpp"
-#include <iostream>
+#include <iostream>//todo
 
 VirtualMachine::VirtualMachine(const std::vector<std::vector<std::string>>& lexerTokens): _lexerTokens(lexerTokens) {
 	/*
@@ -29,29 +29,43 @@ VirtualMachine::VirtualMachine(const std::vector<std::vector<std::string>>& lexe
 	this->_commandsMap["mod"] = &VirtualMachine::mod;
 	this->_commandsMap["print"] = &VirtualMachine::print;
 	this->_commandsMap["exit"] = &VirtualMachine::exit;
-	// const IOperand* obj = OperandFactory::getFactory().createOperand(this->_eOperandTypeMap["float"], "45");
-	// std::cout << obj->getType() << std::endl;
-	// std::cout << obj->toString() << std::endl;
-	// std::cout << obj->getPrecision() << std::endl;
 
 	// this->printTokens();
 	this->run();
-	this->printOperands();
+	// this->printOperands();
 }
 
 VirtualMachine::~VirtualMachine() {
 }
 
+void VirtualMachine::run() {
+	try {
+		for (auto& line : this->_lexerTokens) {
+			if (line[0] == "push" || line[0] == "assert") {
+				(this->*_commandsWithArgsMap[line[0]])(line[1], line[2]);
+			} else {
+				(this->*_commandsMap[line[0]])();
+			}
+		}
+	} catch (VirtualMachineException &e) {
+		this->clearStack();
+		throw;
+	}
+}
+
+void VirtualMachine::clearStack() {
+	for (auto& ptr : this->_operands) {
+		delete ptr;
+	}
+}
+
 void VirtualMachine::push(const std::string& type, const std::string& value) {
-	std::cout << type << " " << value << std::endl;
-	std::cout << "push" << std::endl;
 	this->_operands.push_back(OperandFactory::getFactory().createOperand(this->_eOperandTypeMap[type], value));
 }
 
 void VirtualMachine::pop() {
-	std::cout << "pop" << std::endl;
 	if (this->_operands.size() == 0) {
-		//throw
+		throw VirtualMachineException("VM Exception: You are trying to call pop on an empty stack");
 	}
 	auto operand = *(this->_operands.end() - 1);
 	this->_operands.pop_back();
@@ -59,9 +73,8 @@ void VirtualMachine::pop() {
 }
 
 void VirtualMachine::dump() {
-std::cout << "dump" << std::endl;
 	if (this->_operands.size() == 0) {
-		//throw
+		throw VirtualMachineException("VM Exception: You are trying to call dump on an empty stack");
 	}
 	for (auto it = this->_operands.rbegin(); it != this->_operands.rend(); ++it) {
 		std::cout << (*it)->toString() << std::endl;
@@ -69,37 +82,104 @@ std::cout << "dump" << std::endl;
 }
 
 void VirtualMachine::assert(const std::string& type, const std::string& value) {
-		std::cout << type << " " << value << std::endl;
-	std::cout << "assert" << std::endl;
-	(void)type;(void)value;
+	if (this->_operands.size() == 0) {
+		throw VirtualMachineException("VM Exception: You are trying to call assert on an empty stack");
+	}
+	auto a = *(this->_operands.end() - 1);
+	auto b = OperandFactory::getFactory().createOperand(this->_eOperandTypeMap[type], value);
+	if (a->getType() != b->getType() || a->toString() != b->toString()) {
+		delete b;
+		throw VirtualMachineException("VM Exception: The two operands are not identical");
+	}
+	delete b;
 }
 
 void VirtualMachine::add() {
-std::cout << "add" << std::endl;
+	if (this->_operands.size() < 2) {
+		throw VirtualMachineException("VM Exception: There are less than 2 operands in the stack");
+	}
+	auto a = *(this->_operands.end() - 2);
+	auto b = *(this->_operands.end() - 1);
+	this->_operands.push_back(*a + *b);
+	this->_operands.pop_back();
+	this->_operands.pop_back();
+	delete a;
+	delete b;
 }
 
 void VirtualMachine::sub() {
-std::cout << "sub" << std::endl;
+	if (this->_operands.size() < 2) {
+		throw VirtualMachineException("VM Exception: There are less than 2 operands in the stack");
+	}
+	auto a = *(this->_operands.end() - 2);
+	auto b = *(this->_operands.end() - 1);
+	this->_operands.push_back(*a - *b);
+	this->_operands.pop_back();
+	this->_operands.pop_back();
+	delete a;
+	delete b;
 }
 
 void VirtualMachine::mul() {
-std::cout << "mul" << std::endl;
+	if (this->_operands.size() < 2) {
+		throw VirtualMachineException("VM Exception: There are less than 2 operands in the stack");
+	}
+	auto a = *(this->_operands.end() - 2);
+	auto b = *(this->_operands.end() - 1);
+	this->_operands.push_back(*a * *b);
+	this->_operands.pop_back();
+	this->_operands.pop_back();
+	delete a;
+	delete b;
 }
 
 void VirtualMachine::div() {
-std::cout << "div" << std::endl;
+	if (this->_operands.size() < 2) {
+		throw VirtualMachineException("VM Exception: There are less than 2 operands in the stack");
+	}
+	auto a = *(this->_operands.end() - 2);
+	auto b = *(this->_operands.end() - 1);
+	this->_operands.push_back(*a / *b);
+	this->_operands.pop_back();
+	this->_operands.pop_back();
+	delete a;
+	delete b;
 }
 
 void VirtualMachine::mod() {
-std::cout << "mod" << std::endl;
+	if (this->_operands.size() < 2) {
+		throw VirtualMachineException("VM Exception: There are less than 2 operands in the stack");
+	}
+	auto a = *(this->_operands.end() - 2);
+	auto b = *(this->_operands.end() - 1);
+	this->_operands.push_back(*a % *b);
+	this->_operands.pop_back();
+	this->_operands.pop_back();
+	delete a;
+	delete b;
 }
+// push int32(32) 
+// push int32(0) 
+// div 
+// exit 
 
 void VirtualMachine::print() {
-std::cout << "print" << std::endl;
+	if (this->_operands.size() == 0) {
+		throw VirtualMachineException("VM Exception: You are trying to call print on an empty stack");
+	}
+	auto a = *(this->_operands.end() - 1);
+	if (a->getPrecision() != Int8) {
+		throw VirtualMachineException("VM Exception: The operand is not of type Int8");
+	}
+	char tempInt8 = std::stoi(a->toString());
+	if (32 <= tempInt8 && tempInt8 <= 126) {
+		std::cout << tempInt8 << std::endl;
+	}
 }
 
 void VirtualMachine::exit() {
-std::cout << "exit" << std::endl;
+	this->clearStack();
+	std::exit(0);
 }
 
 void VirtualMachine::printTokens() {
@@ -117,13 +197,3 @@ void VirtualMachine::printOperands() {
 		std::cout << "type: " << obj->getType() << ", string: " << obj->toString() << ", precision: " << obj->getPrecision() << std::endl;
 	}
 }//TODO
-
-void VirtualMachine::run() {
-	for (auto& line : this->_lexerTokens) {
-		if (line[0] == "push" || line[0] == "assert") {
-			(this->*_commandsWithArgsMap[line[0]])(line[1], line[2]);
-		} else {
-			(this->*_commandsMap[line[0]])();
-		}
-	}
-}
