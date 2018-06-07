@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-//make methods you can private
+
 class Parser {
 	public:
 		Parser() = delete;
@@ -11,6 +11,14 @@ class Parser {
 		Parser(const Parser& obj) = delete;
 		~Parser();
 		void printTokens();//TODO
+
+		Parser& operator=(const Parser& obj) = delete;
+	private:
+		const std::vector<std::vector<std::string>>& _lexerTokens;
+		std::string _errors;
+		int exitCount;
+		unsigned long numberOfTokenWithError = 0;
+
 		void checkTokens();
 		void validatePushAndAssertArgs(std::vector<std::string> tokenLine);
 		void validateFloatArgs(std::string token);
@@ -23,13 +31,6 @@ class Parser {
 		bool isExit(unsigned long index);
 		void checkExitCount();
 		void isExitLastCommand();
-
-		Parser& operator=(const Parser& obj) = delete;
-	private:
-		const std::vector<std::vector<std::string>>& _lexerTokens;
-		std::string _errors;
-		int exitCount;
-		unsigned long numberOfLineWithError = 0;
 };
 
 #endif

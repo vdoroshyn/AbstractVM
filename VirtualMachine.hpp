@@ -6,28 +6,12 @@
 #include <map>
 #include "IOperand.hpp"
 
-//make methods you can private
 class VirtualMachine {
 	public:
 		VirtualMachine() = delete;
 		VirtualMachine(const std::vector<std::vector<std::string>>& lexerTokens);
 		VirtualMachine(const VirtualMachine& obj) = delete;
 		~VirtualMachine();
-
-		void run();
-		void clearStack();
-		
-		void push(const std::string& type, const std::string& value);
-		void pop();
-		void dump();
-		void assert(const std::string& type, const std::string& value);
-		void add();
-		void sub();
-		void mul();
-		void div();
-		void mod();
-		void print();
-		void exit();
 
 		void printTokens();//todo
 		void printOperands();//todo
@@ -48,6 +32,21 @@ class VirtualMachine {
 		**the map is needed to more easily call each command without arguments
 		*/
 		std::map<std::string, void (VirtualMachine::*)()> _commandsMap;
+
+		void run();
+		void clearStack();
+		
+		void push(const std::string& type, const std::string& value);
+		void pop();
+		void dump();
+		void assert(const std::string& type, const std::string& value);
+		void add();
+		void sub();
+		void mul();
+		void div();
+		void mod();
+		void print();
+		void exit();
 };
 
 #endif

@@ -100,11 +100,16 @@ void VirtualMachine::add() {
 	}
 	auto a = *(this->_operands.end() - 2);
 	auto b = *(this->_operands.end() - 1);
-	this->_operands.push_back(*a + *b);
+	/*
+	**The operation should be done before pop_back
+	**because if it throws an exception, there will be leaks
+	*/
+	auto res = *a + *b;
 	this->_operands.pop_back();
 	this->_operands.pop_back();
 	delete a;
 	delete b;
+	this->_operands.push_back(res);
 }
 
 void VirtualMachine::sub() {
@@ -113,11 +118,16 @@ void VirtualMachine::sub() {
 	}
 	auto a = *(this->_operands.end() - 2);
 	auto b = *(this->_operands.end() - 1);
-	this->_operands.push_back(*a - *b);
+	/*
+	**The operation should be done before pop_back
+	**because if it throws an exception, there will be leaks
+	*/
+	auto res = *a - *b;	
 	this->_operands.pop_back();
 	this->_operands.pop_back();
 	delete a;
 	delete b;
+	this->_operands.push_back(res);
 }
 
 void VirtualMachine::mul() {
@@ -126,11 +136,16 @@ void VirtualMachine::mul() {
 	}
 	auto a = *(this->_operands.end() - 2);
 	auto b = *(this->_operands.end() - 1);
-	this->_operands.push_back(*a * *b);
+	/*
+	**The operation should be done before pop_back
+	**because if it throws an exception, there will be leaks
+	*/
+	auto res = *a * *b;	
 	this->_operands.pop_back();
 	this->_operands.pop_back();
 	delete a;
 	delete b;
+	this->_operands.push_back(res);
 }
 
 void VirtualMachine::div() {
@@ -139,11 +154,16 @@ void VirtualMachine::div() {
 	}
 	auto a = *(this->_operands.end() - 2);
 	auto b = *(this->_operands.end() - 1);
-	this->_operands.push_back(*a / *b);
+	/*
+	**The operation should be done before pop_back
+	**because if it throws an exception, there will be leaks
+	*/
+	auto res = *a / *b;	
 	this->_operands.pop_back();
 	this->_operands.pop_back();
 	delete a;
 	delete b;
+	this->_operands.push_back(res);
 }
 
 void VirtualMachine::mod() {
@@ -152,11 +172,16 @@ void VirtualMachine::mod() {
 	}
 	auto a = *(this->_operands.end() - 2);
 	auto b = *(this->_operands.end() - 1);
-	this->_operands.push_back(*a % *b);
+	/*
+	**The operation should be done before pop_back
+	**because if it throws an exception, there will be leaks
+	*/
+	auto res = *a % *b;	
 	this->_operands.pop_back();
 	this->_operands.pop_back();
 	delete a;
 	delete b;
+	this->_operands.push_back(res);
 }
 // push int32(32) 
 // push int32(0) 

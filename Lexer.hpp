@@ -11,14 +11,6 @@ class Lexer {
 		Lexer(int argc, char* argv[]);
 		Lexer(const Lexer& obj) = delete;
 		~Lexer();
-
-		void readFromFile(char *file);
-		void readFromStandardInput();
-		bool areTokensEmpty();
-		void lineValidation(std::string input);
-		void processingShortCommands(std::smatch match);
-		void processingCommandsWithArguments(std::smatch match);
-		void processingEmptyLinesAndComments();
 		
 		const std::vector<std::vector<std::string>>& getTokens();
 
@@ -27,6 +19,14 @@ class Lexer {
 		std::vector<std::vector<std::string>> _tokens;
 		std::string _errors;
 		unsigned long numberOfLineWithError = 0;
+
+		void readFromFile(char *file);
+		void readFromStandardInput();
+		bool areTokensEmpty();
+		void lineValidation(std::string input);
+		void processingShortCommands(std::smatch match);
+		void processingCommandsWithArguments(std::smatch match);
+		void processingEmptyLinesAndComments();
 };
 
 #endif
