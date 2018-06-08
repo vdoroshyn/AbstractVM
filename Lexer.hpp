@@ -20,6 +20,7 @@ class Lexer {
 		std::string _errors;
 		unsigned long numberOfLineWithError = 0;
 
+		void printOutUsage();
 		void readFromFile(char *file);
 		void readFromStandardInput();
 		bool areTokensEmpty();

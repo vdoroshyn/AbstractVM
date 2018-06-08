@@ -7,13 +7,10 @@
 #include "VirtualMachineException.hpp"
 
 int main(int argc, char* argv[]) {
-
 	try {
 		Lexer lexer(argc, argv);
 		Parser parser(lexer.getTokens());
-		// parser.printTokens();
 		VirtualMachine VM(lexer.getTokens());
-		// VM.printTokens();
 	} catch (LexerException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (ParserException& e) {
@@ -23,7 +20,6 @@ int main(int argc, char* argv[]) {
 	} catch (...) {
 		std::cout << "Unknown exception was caught" << std::endl;
 	}
-	// system("leaks avm");
 	return 0;
 }
 

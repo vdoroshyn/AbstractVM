@@ -9,13 +9,13 @@
 #include "VirtualMachineException.hpp"
 #include "IOperand.hpp"
 #include "OperandFactory.hpp"
-#include <iostream>//todo
+
 static std::map<eOperandType, long double> lowest {
 	{ Int8, std::numeric_limits<int8_t>::lowest()   },
 	{ Int16, std::numeric_limits<int16_t>::lowest() },
 	{ Int32, std::numeric_limits<int32_t>::lowest() },
 	{ Float, std::numeric_limits<float>::lowest()   },
-	{ Double, std::numeric_limits<double>::lowest() },
+	{ Double, std::numeric_limits<double>::lowest() }
 };
 
 static std::map<eOperandType, long double> biggest {
@@ -23,7 +23,7 @@ static std::map<eOperandType, long double> biggest {
 	{ Int16, std::numeric_limits<int16_t>::max() },
 	{ Int32, std::numeric_limits<int32_t>::max() },
 	{ Float, std::numeric_limits<float>::max()   },
-	{ Double, std::numeric_limits<double>::max() },
+	{ Double, std::numeric_limits<double>::max() }
 };
 
 template<class T>
@@ -49,6 +49,8 @@ class Operand : public IOperand {
 		int _precision;
 		eOperandType _type;
 		const std::string _value;
+
+		const std::string resultToString(eOperandType type, long double value) const;
 };
 
 template<typename T>
@@ -68,19 +70,15 @@ const IOperand* Operand<T>::operator+(const IOperand& rhs) const {
 	**calculating the result of the operation
 	*/
 	long double res = a + b;
-		std::cout << res << std::endl;
 	/*
-	**calculating the reuslting type depending on what operand is bigger
+	**calculating the limits of the resulting type depending on what operand is bigger
 	*/
 	auto min = lowest[type];
 	auto max = biggest[type];
-	std::cout << min << " " << max << std::endl;
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
-	T resWithoutZeros = static_cast<T>(res);
-
-	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
+	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
 
 template<typename T>
@@ -93,15 +91,14 @@ const IOperand* Operand<T>::operator-(const IOperand& rhs) const {
 	*/
 	long double res = a - b;
 	/*
-	**calculating the reuslting type depending on what operand is bigger
+	**calculating the limits of the resulting type depending on what operand is bigger
 	*/
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
-	T resWithoutZeros = static_cast<T>(res);
-	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
+	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
 
 template<typename T>
@@ -114,15 +111,14 @@ const IOperand* Operand<T>::operator*(const IOperand& rhs) const {
 	*/
 	long double res = a * b;
 	/*
-	**calculating the reuslting type depending on what operand is bigger
+	**calculating the limits of the resulting type depending on what operand is bigger
 	*/
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
-	T resWithoutZeros = static_cast<T>(res);
-	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
+	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
 
 template<typename T>
@@ -138,15 +134,14 @@ const IOperand* Operand<T>::operator/(const IOperand& rhs) const {
 	*/
 	long double res = a / b;
 	/*
-	**calculating the reuslting type depending on what operand is bigger
+	**calculating the limits of the resulting type depending on what operand is bigger
 	*/
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
-	T resWithoutZeros = static_cast<T>(res);
-	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
+	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
 
 template<typename T>
@@ -162,15 +157,14 @@ const IOperand* Operand<T>::operator%(const IOperand& rhs) const {
 	*/
 	long double res = fmod(a, b);
 	/*
-	**calculating the reuslting type depending on what operand is bigger
+	**calculating the limits of the resulting type depending on what operand is bigger
 	*/
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
-	T resWithoutZeros = static_cast<T>(res);
-	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
+	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
 
 template<typename T>
@@ -186,6 +180,24 @@ int Operand<T>::getPrecision() const {
 template<typename T>
 eOperandType Operand<T>::getType() const {
 	return this->_type;
+}
+
+template<typename T>
+const std::string Operand<T>::resultToString(eOperandType type, long double value) const {
+	std::string res;
+
+	if (type == Int8) {
+		res = std::to_string(static_cast<int8_t>(value));
+	} else if (type == Int16) {
+		res = std::to_string(static_cast<int16_t>(value));
+	} else if (type == Int32) {
+		res = std::to_string(static_cast<int32_t>(value));
+	} else if (type == Float) {
+		res = std::to_string(static_cast<float>(value));
+	} else {
+		res = std::to_string(static_cast<double>(value));
+	}
+	return res;
 }
 
 #endif
