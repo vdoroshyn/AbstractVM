@@ -23,15 +23,12 @@ int main(int argc, char* argv[]) {
 	} catch (...) {
 		std::cout << "Unknown exception was caught" << std::endl;
 	}
-	system("leaks avm");
+	// system("leaks avm");
 	return 0;
 }
 
 
 //to fix:
-//choosing the right type in operations
-//modulo with fp
-//mod and div on 0
 
 //to add:
 //usage

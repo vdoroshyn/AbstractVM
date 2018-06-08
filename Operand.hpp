@@ -2,11 +2,29 @@
 #define OPERAND_HPP
 
 #include <string>
+#include <map>
 #include <algorithm>
 #include <limits>
+#include <math.h>
 #include "VirtualMachineException.hpp"
 #include "IOperand.hpp"
 #include "OperandFactory.hpp"
+#include <iostream>//todo
+static std::map<eOperandType, long double> lowest {
+	{ Int8, std::numeric_limits<int8_t>::lowest()   },
+	{ Int16, std::numeric_limits<int16_t>::lowest() },
+	{ Int32, std::numeric_limits<int32_t>::lowest() },
+	{ Float, std::numeric_limits<float>::lowest()   },
+	{ Double, std::numeric_limits<double>::lowest() },
+};
+
+static std::map<eOperandType, long double> biggest {
+	{ Int8, std::numeric_limits<int8_t>::max()   },
+	{ Int16, std::numeric_limits<int16_t>::max() },
+	{ Int32, std::numeric_limits<int32_t>::max() },
+	{ Float, std::numeric_limits<float>::max()   },
+	{ Double, std::numeric_limits<double>::max() },
+};
 
 template<class T>
 class Operand : public IOperand {
@@ -46,13 +64,22 @@ const IOperand* Operand<T>::operator+(const IOperand& rhs) const {
 	eOperandType type = std::max(this->getType(), rhs.getType());
 	long double a = std::stold(this->toString());
 	long double b = std::stold(rhs.toString());
+	/*
+	**calculating the result of the operation
+	*/
 	long double res = a + b;
-	T min = std::numeric_limits<T>::lowest();
-	T max = std::numeric_limits<T>::max();
+		std::cout << res << std::endl;
+	/*
+	**calculating the reuslting type depending on what operand is bigger
+	*/
+	auto min = lowest[type];
+	auto max = biggest[type];
+	std::cout << min << " " << max << std::endl;
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
 	T resWithoutZeros = static_cast<T>(res);
+
 	return OperandFactory::getFactory().createOperand(type, std::to_string(resWithoutZeros));
 }
 
@@ -61,9 +88,15 @@ const IOperand* Operand<T>::operator-(const IOperand& rhs) const {
 	eOperandType type = std::max(this->getType(), rhs.getType());
 	long double a = std::stold(this->toString());
 	long double b = std::stold(rhs.toString());
+	/*
+	**calculating the result of the operation
+	*/
 	long double res = a - b;
-	T min = std::numeric_limits<T>::lowest();
-	T max = std::numeric_limits<T>::max();
+	/*
+	**calculating the reuslting type depending on what operand is bigger
+	*/
+	auto min = lowest[type];
+	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
@@ -76,9 +109,15 @@ const IOperand* Operand<T>::operator*(const IOperand& rhs) const {
 	eOperandType type = std::max(this->getType(), rhs.getType());
 	long double a = std::stold(this->toString());
 	long double b = std::stold(rhs.toString());
+	/*
+	**calculating the result of the operation
+	*/
 	long double res = a * b;
-	T min = std::numeric_limits<T>::lowest();
-	T max = std::numeric_limits<T>::max();
+	/*
+	**calculating the reuslting type depending on what operand is bigger
+	*/
+	auto min = lowest[type];
+	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
@@ -91,9 +130,18 @@ const IOperand* Operand<T>::operator/(const IOperand& rhs) const {
 	eOperandType type = std::max(this->getType(), rhs.getType());
 	long double a = std::stold(this->toString());
 	long double b = std::stold(rhs.toString());
+	if (b == 0) {
+		throw VirtualMachineException("VM Exception: Division by zero detected. Alert! Alert! Alert!");
+	}
+	/*
+	**calculating the result of the operation
+	*/
 	long double res = a / b;
-	T min = std::numeric_limits<T>::lowest();
-	T max = std::numeric_limits<T>::max();
+	/*
+	**calculating the reuslting type depending on what operand is bigger
+	*/
+	auto min = lowest[type];
+	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
@@ -106,9 +154,18 @@ const IOperand* Operand<T>::operator%(const IOperand& rhs) const {
 	eOperandType type = std::max(this->getType(), rhs.getType());
 	long double a = std::stold(this->toString());
 	long double b = std::stold(rhs.toString());
-	long double res = (int)a % (int)b;//todo
-	T min = std::numeric_limits<T>::lowest();
-	T max = std::numeric_limits<T>::max();
+	if (b == 0) {
+		throw VirtualMachineException("VM Exception: Modulo by zero detected. Alert! Alert! Alert!");
+	}
+	/*
+	**calculating the result of the operation
+	*/
+	long double res = fmod(a, b);
+	/*
+	**calculating the reuslting type depending on what operand is bigger
+	*/
+	auto min = lowest[type];
+	auto max = biggest[type];
 	if (res < min || max < res) {
 		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
 	}
