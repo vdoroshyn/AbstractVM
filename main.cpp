@@ -22,10 +22,3 @@ int main(int argc, char* argv[]) {
 	}
 	return 0;
 }
-
-
-//to fix:
-
-//to add:
-//usage
-//

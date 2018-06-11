@@ -1,6 +1,6 @@
 #include "Lexer.hpp"
 #include "LexerException.hpp"
-#include <iostream>//todo
+#include <iostream>
 #include <fstream>
 #include <regex>
 
