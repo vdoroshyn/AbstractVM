@@ -13,9 +13,6 @@ class VirtualMachine {
 		VirtualMachine(const VirtualMachine& obj) = delete;
 		~VirtualMachine();
 
-		void printTokens();//todo
-		void printOperands();//todo
-
 		VirtualMachine& operator=(const VirtualMachine& obj) = delete;
 	private:
 		const std::vector<std::vector<std::string>>& _lexerTokens;

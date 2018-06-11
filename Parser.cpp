@@ -1,6 +1,5 @@
 #include "Parser.hpp"
 #include "ParserException.hpp"
-#include <iostream>
 #include <limits>
 
 Parser::Parser(const std::vector<std::vector<std::string>>& lexerTokens): _lexerTokens(lexerTokens) {
@@ -11,18 +10,7 @@ Parser::Parser(const std::vector<std::vector<std::string>>& lexerTokens): _lexer
 Parser::~Parser() {
 }
 
-void Parser::printTokens() {
-	std::cout << "output number of lines with tokens: " << this->_lexerTokens.size() << std::endl;
-	for (auto& line : this->_lexerTokens) {
-		for (auto& token : line) {
-			std::cout << token << " ";
-		}
-		std::cout << std::endl;
-	}
-}//TODO
-
 void Parser::checkTokens() {
-	std::cout << "_______________________________________________________________" << std::endl;//todo
 	for (unsigned long index = 0; index < this->_lexerTokens.size(); ++index) {
 		/*
 		**Iterating numberOfTokenWithError with each line to show relevant line sin error messages 
@@ -71,7 +59,7 @@ void Parser::validateFloatArgs(std::string token) {
 							+ token + "\" is out of float boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
-		this->_errors += "There was an error while converting a string to double\n";
+		this->_errors += "There was an error while converting a string to double.\n";
 	} catch (std::out_of_range) {
 		this->_errors += "Parser error in token "
 						+ std::to_string(this->numberOfTokenWithError) + ": \""
@@ -91,7 +79,7 @@ void Parser::validateDoubleArgs(std::string token) {
 							+ token + "\" is out of double boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
-		this->_errors += "There was an error while converting a string to double\n";
+		this->_errors += "There was an error while converting a string to double.\n";
 	} catch (std::out_of_range) {
 		this->_errors += "Parser error in token "
 						+ std::to_string(this->numberOfTokenWithError) + ": \""
@@ -111,7 +99,7 @@ void Parser::validateInt8Args(std::string token) {
 							+ token + "\" is out of int8 boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
-		this->_errors += "There was an error while converting a string to long long\n";
+		this->_errors += "There was an error while converting a string to long long.\n";
 	} catch (std::out_of_range) {
 		this->_errors += "Parser error in token "
 						+ std::to_string(this->numberOfTokenWithError) + ": \""
@@ -131,7 +119,7 @@ void Parser::validateInt16Args(std::string token) {
 							+ token + "\" is out of int16 boundaries.\n";
 		}
 	} catch (std::invalid_argument) {
-		this->_errors += "There was an error while converting a string to long long\n";
+		this->_errors += "There was an error while converting a string to long long.\n";
 	} catch (std::out_of_range) {
 		this->_errors += "Parser error in token "
 						+ std::to_string(this->numberOfTokenWithError) + ": \""

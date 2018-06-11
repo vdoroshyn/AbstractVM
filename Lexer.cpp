@@ -28,7 +28,7 @@ Lexer::Lexer(int argc, char* argv[]) {
 		*/
 		this->readFromFile(argv[1]);
 	} else {
-		throw LexerException("There are too many arguments");
+		throw LexerException("There are too many arguments.");
 	}
 }
 
@@ -59,7 +59,7 @@ void Lexer::printOutUsage() {
 void Lexer::readFromFile(char* file) {
 	std::ifstream ifstr(file);
 	if (!ifstr.is_open()) {
-		throw LexerException("The stream is not opened");
+		throw LexerException("The stream is not opened.");
 	}
 
 	std::string input;
@@ -74,7 +74,7 @@ void Lexer::readFromFile(char* file) {
 	**Checking whether the user entered at least something
 	*/
 	if (areTokensEmpty()) {
-		this->_errors += "You should have entered at least one command\n";
+		this->_errors += "You should have entered at least one command.\n";
 		throw LexerException(this->_errors);
 	}
 }
@@ -92,7 +92,7 @@ void Lexer::readFromStandardInput() {
 	**Checking whether the user entered at least something
 	*/
 	if (areTokensEmpty()) {
-		this->_errors += "You should have entered at least one command\n";
+		this->_errors += "You should have entered at least one command.\n";
 		throw LexerException(this->_errors);
 	}
 }
@@ -123,7 +123,7 @@ void Lexer::lineValidation(std::string input) {
 	} else if (regex_search(input, match, commentRegex) || regex_search(input, match, emptyLineRegex)) {
 		processingEmptyLinesAndComments();
 	} else {
-		this->_errors += "Lexer error: Check the syntax on line " + std::to_string(this->numberOfLineWithError) + ": \"" + input + "\"\n";
+		this->_errors += "Lexer error: Check the syntax on line " + std::to_string(this->numberOfLineWithError) + ": \"" + input + "\".\n";
 	}
 }
 

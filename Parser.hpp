@@ -10,7 +10,6 @@ class Parser {
 		Parser(const std::vector<std::vector<std::string>>& lexerTokens);
 		Parser(const Parser& obj) = delete;
 		~Parser();
-		void printTokens();//TODO
 
 		Parser& operator=(const Parser& obj) = delete;
 	private:
