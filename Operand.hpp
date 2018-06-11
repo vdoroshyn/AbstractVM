@@ -76,7 +76,7 @@ const IOperand* Operand<T>::operator+(const IOperand& rhs) const {
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
-		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types.");
 	}
 	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
@@ -96,7 +96,7 @@ const IOperand* Operand<T>::operator-(const IOperand& rhs) const {
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
-		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types.");
 	}
 	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
@@ -116,7 +116,7 @@ const IOperand* Operand<T>::operator*(const IOperand& rhs) const {
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
-		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types.");
 	}
 	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
@@ -139,7 +139,7 @@ const IOperand* Operand<T>::operator/(const IOperand& rhs) const {
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
-		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types.");
 	}
 	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
@@ -162,7 +162,7 @@ const IOperand* Operand<T>::operator%(const IOperand& rhs) const {
 	auto min = lowest[type];
 	auto max = biggest[type];
 	if (res < min || max < res) {
-		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types");
+		throw VirtualMachineException("VM Exception: The result of the operation exceeds the boundaries of both operands' types.");
 	}
 	return OperandFactory::getFactory().createOperand(type, resultToString(type, res));
 }
