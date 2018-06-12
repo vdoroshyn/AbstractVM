@@ -27,7 +27,7 @@ Lexer::Lexer(int argc, char* argv[]) {
 		**I am chrcking whether the file is regular in order to avoid different shenanigans
 		*/
 		if (!isFileRegular(argv[1])) {
-			throw LexerException("Eric Exception: Congratulations! You are trying to check veeeeeery perverted cases!");
+			throw LexerException("Eric Exception: Congratulations! You are trying to check veeeeeery perverted cases!\n");
 		}
 		/*
 		**read stuff from a file
@@ -35,7 +35,7 @@ Lexer::Lexer(int argc, char* argv[]) {
 		*/
 		this->readFromFile(argv[1]);
 	} else {
-		throw LexerException("There are too many arguments.");
+		throw LexerException("There are too many arguments.\n");
 	}
 }
 
@@ -75,7 +75,7 @@ int Lexer::isFileRegular(const char* path) {
 void Lexer::readFromFile(char* file) {
 	std::ifstream ifstr(file);
 	if (!ifstr.is_open()) {
-		throw LexerException("The stream is not opened.");
+		throw LexerException("The stream is not opened.\n");
 	}
 
 	std::string input;
