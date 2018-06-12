@@ -21,6 +21,7 @@ class Lexer {
 		unsigned long numberOfLineWithError = 0;
 
 		void printOutUsage();
+		int isFileRegular(const char* path);
 		void readFromFile(char *file);
 		void readFromStandardInput();
 		bool areTokensEmpty();

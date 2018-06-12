@@ -12,9 +12,9 @@ int main(int argc, char* argv[]) {
 		Parser parser(lexer.getTokens());
 		VirtualMachine VM(lexer.getTokens());
 	} catch (LexerException& e) {
-		std::cout << e.what() << std::endl;
+		std::cout << e.what();
 	} catch (ParserException& e) {
-		std::cout << e.what() << std::endl;
+		std::cout << e.what();
 	} catch (VirtualMachineException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (...) {

@@ -1,3 +1,4 @@
+#include <sys/stat.h>
 #include "Lexer.hpp"
 #include "LexerException.hpp"
 #include <iostream>
@@ -13,14 +14,20 @@ Lexer::Lexer(int argc, char* argv[]) {
 		this->readFromStandardInput();
 	} else if (argc == 2) {
 		/*
-		**An Easter Egg for perverts in UNIT Factory
+		**Showing usage to the user
 		*/
 		std::string argument = std::string(argv[1]);
-		if (argument == "/dev/zero" || argument == "/dev/null") {
-			throw LexerException("Eric Exception: Congratulations! You are trying to check veeeeeery perverted cases!");
-		} else if (argument == "--help") {
+
+		if (argument == "--help") {
 			printOutUsage();
 			std::exit(1);
+		}
+		/*
+		**An Easter Egg for perverts in UNIT Factory
+		**I am chrcking whether the file is regular in order to avoid different shenanigans
+		*/
+		if (!isFileRegular(argv[1])) {
+			throw LexerException("Eric Exception: Congratulations! You are trying to check veeeeeery perverted cases!");
 		}
 		/*
 		**read stuff from a file
@@ -54,6 +61,15 @@ void Lexer::printOutUsage() {
 	std::cout << "\033[1;95mmod\033[0m: \033[0;34mUnstacks the first two values in the stack, calculates the modulus, and pushes the result on the stack. \033[1;91m" << std::endl << "If there are less than 2 operands in the stack or the divisor is equal to 0, the program execution stops with an error.\033[0m" << std::endl << std::endl;
 	std::cout << "\033[1;95mprint\033[0m: \033[0;34mAsserts that the value at the top of the stack is a 8-bit integer (\033[1;91mif not, check the instructions for assert\033[0m\033[0;34m);" << std::endl << "After that, it interprets it as an ASCII value and displays the corresponding character on the standard output.\033[0m" << std::endl << std::endl;
 	std::cout << "\033[1;95mexit\033[0m: \033[0;34mTerminates the execution of the current program. \033[1;91m" << std::endl << "There must be only one exit command and it must be located at the end of the input.\033[0m" << std::endl;
+}
+
+int Lexer::isFileRegular(const char* path) {
+	struct stat sb;
+
+	if (stat(path, &sb) == 0 && S_ISREG(sb.st_mode)) {
+		return true;
+	}
+	return false;
 }
 
 void Lexer::readFromFile(char* file) {
